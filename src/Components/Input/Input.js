@@ -1,4 +1,31 @@
 import React from 'react';
+import './input.css';
+import {withStyles} from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+const CssTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: 'green',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'green',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'red',
+      },
+      '&:hover fieldset': {
+        borderColor: 'yellow',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'green',
+      },
+    },
+  },
+})(TextField);
+
+const PLACEHOLDER = "Country name: ";
 
 export default class Input extends React.Component {
   constructor(props) {
@@ -24,13 +51,15 @@ export default class Input extends React.Component {
   };
 
   render() {
+
     return (
-      <div>
-        <span>Country name: </span>
-        <input type="text"
-               onChange={this.onInputChange}
-               onKeyDown={e => this.onEnter(e)}
-               ref={node => this.inputNode = node}/>
+      <div className="main">
+        <CssTextField
+          id="custom-css-standard-input"
+          label={PLACEHOLDER}
+          onChange={this.onInputChange}
+          onKeyDown={e => this.onEnter(e)}
+          ref={node => this.inputNode = node}/>
       </div>
     );
   }

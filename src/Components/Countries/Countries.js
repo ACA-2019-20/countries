@@ -1,5 +1,11 @@
 import React from 'react';
+import './counter.css';
 import Input from '../Input/Input';
+
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
 
 export default class Countries extends React.Component {
   constructor(props) {
@@ -52,7 +58,7 @@ export default class Countries extends React.Component {
     const {isEmpty, isLoading, errorText, countries} = this.state;
 
     return (
-      <div>
+      <div className="main">
         <Input onInputClick={this.searchCountry}/>
         {errorText
           ? <p>{errorText}</p>
@@ -60,9 +66,23 @@ export default class Countries extends React.Component {
             ? <p>No Data</p>
             : isLoading
               ? <p>Loading ...</p>
-              : countries.map(country => <p key={country.name}>{country.name}</p>)
+              : countries.map(country =>
+                <Card key={country.name} className="cardStyle">
+                  <CardContent>
+                    <Typography variant="h5" component="h2" gutterBottom color="primary">
+                      {country.name}
+                    </Typography>
+                    <Typography variant="h6"  gutterBottom color="textSecondary">
+                      {country.capital}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      Population: {country.population}
+                    </Typography>
+                  </CardContent>
+                </Card>)
         }
       </div>
+
     );
   }
 }
